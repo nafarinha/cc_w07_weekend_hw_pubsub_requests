@@ -1,4 +1,5 @@
 const WeatherForecast = require('./models/weather_forecast.js');
+const ForecastView = require('./views/forecast_view.js');
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -6,7 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const forecastContainer = document.querySelector('forecast-container');
 
+const forecastView = new ForecastView(forecastContainer);
+forecastView.bindEvents();
 
-  const forecast = new WeatherForecast()
-  forecast.getData();
+const forecast = new WeatherForecast()
+forecast.getData();
+
+
+
+
+
+
 });
