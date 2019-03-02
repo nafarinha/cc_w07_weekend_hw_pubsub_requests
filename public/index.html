@@ -3,11 +3,22 @@
   <head>
     <meta charset="utf-8">
     <title>Weather Forecast</title>
-    <script rel="stylesheet" href="css/style.js"></script>
-    <script src="js/bundle.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/bundle.js">
+    </script>
   </head>
   <body>
     <h1>Weather Forecast by coordinates</h1>
+    <main>
+      <form class="location-coordinates" method="get">
+        <label>Latitude:</label>
+          <input type="number" name="latitude" min="-90" max="90" required><br><br>
+        <label>Longitude:</label>
+          <input type="number" name="longitude" min="-180" max="180" required><br><br>
+          <input type="submit" value="Submit">
+      </form>
+      </form>
+    </main>
     <div class="forecast-container">
 
     </div>
