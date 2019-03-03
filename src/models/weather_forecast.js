@@ -5,22 +5,33 @@ const PubSub = require('../helpers/pub_sub.js');
 
 const WeatherForecast = function () {
   this.data = null;
+  this.coordinates = {};
 }
+
+WeatherForecast.prototype.bindEvents = function () {
+
+  PubSub.subscribe('LocationInputView:coordinates-submited', (evt) => {
+      this.coordinates = evt.detail;
+      this.getData();
+    });
+};
+
+
 
 WeatherForecast.prototype.getData = function () {
   const apiKey = ApiKey;
-  //38.7103,-9.1379
-  const url = `http://api.openweathermap.org/data/2.5/forecast?lat=38.71&lon=-9.13&APPID=${apiKey}`;
+
+  const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${this.coordinates.latitude}&lon=${this.coordinates.longitude}&APPID=${apiKey}`;
   const request = new RequestHelper(url);
   request.get()
     .then( (data) => {
       this.data = data;
-      //console.log(this.data);
+//TEST
+      //console.log('forecast data:',this.data);
       PubSub.publish('WeatherForecast:forecast-ready', this.data);
     })
     .catch( (error) => console.error(error) );
 };
 
-//WeatherForecast.prototype.coordinates = #
 
 module.exports = WeatherForecast;

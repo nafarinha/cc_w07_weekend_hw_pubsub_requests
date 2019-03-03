@@ -1,5 +1,7 @@
 const PubSub = require('../helpers/pub_sub.js');
 
+const WeatherForecast = require('../models/weather_forecast.js');
+
 const LocationInputView = function () {
 };
 
@@ -12,8 +14,7 @@ LocationInputView.prototype.formSubmitHandler = function(evt) {
   evt.preventDefault();
   const form = evt.target;
   const locationCoordinates = formValues(form);
-  //TEST
-  console.log('location:', locationCoordinates);
+
   PubSub.publish('LocationInputView:coordinates-submited', locationCoordinates);
   form.reset();
 };

@@ -15,7 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
   forecastView.bindEvents();
 
   const forecast = new WeatherForecast()
-  forecast.getData();
+  forecast.bindEvents();
+
+
+
 
 
 
