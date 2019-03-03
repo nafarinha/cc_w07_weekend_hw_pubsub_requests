@@ -6,10 +6,10 @@ const ForecastView = require('./views/forecast_view.js');
 document.addEventListener('DOMContentLoaded', () => {
   console.log('JavaScript Loaded');
 
-  const forecastContainer = document.querySelector('forecast-container');
-
   const locationInputView = new LocationInputView();
   locationInputView.bindEvents();
+
+  const forecastContainer = document.querySelector('#forecast-container');
 
   const forecastView = new ForecastView(forecastContainer);
   forecastView.bindEvents();
