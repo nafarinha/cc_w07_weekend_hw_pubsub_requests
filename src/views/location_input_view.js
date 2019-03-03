@@ -5,20 +5,23 @@ const LocationInputView = function () {
 
 LocationInputView.prototype.bindEvents = function() {
   const form = document.querySelector('#location-coordinates-form');
-  form.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-
-    const location = this.formValues(form);
-
-    console.log('location:', location);
-
-    form.reset();
-  });
+  form.addEventListener('submit', this.formSubmitHandler);
 };
 
-LocationInputView.prototype.formValues = (form) => ({
-  latitude: form.latitude.value,
-  longitude: form.longitude.value
+LocationInputView.prototype.formSubmitHandler = function(evt) {
+  evt.preventDefault();
+  const form = evt.target;
+  const locationCoordinates = formValues(form);
+  //TEST
+  console.log('location:', locationCoordinates);
+  PubSub.publish('LocationInputView:coordinates-submited', locationCoordinates);
+  form.reset();
+};
+
+const formValues = (form) => ({
+    latitude: form.latitude.value,
+    longitude: form.longitude.value
 });
+
 
 module.exports = LocationInputView;
