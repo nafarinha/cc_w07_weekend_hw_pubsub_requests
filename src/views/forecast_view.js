@@ -1,5 +1,5 @@
 const PubSub = require('../helpers/pub_sub.js');
-const WeatherForecast = require('../models/weather_forecast.js')
+const ForecastDetailView = require('./forecast_detail_view.js');
 
 const ForecastView = function(container) {
   this.container = container;
@@ -9,13 +9,17 @@ const ForecastView = function(container) {
 ForecastView.prototype.bindEvents = function () {
   PubSub.subscribe('WeatherForecast:forecast-ready', (evt) => {
 //TEST
-  console.log('forecast:',evt.detail);
+  console.log('forecast:', evt.detail);
+  this.clearList();
   this.forecastHeader(evt.detail);
-  // this.locationHeader(evt.detail);
-  // this.iconHeader(evt.detail);
+  this.renderForecastDetailViews(evt.detail);
 
 
   });
+};
+
+ForecastView.prototype.clearList = function() {
+  this.container.innerHTML = '';
 };
 
 ForecastView.prototype.forecastHeader = function (location) {
@@ -34,7 +38,6 @@ ForecastView.prototype.locationHeader = function (location) {
   const locationName = document.createElement('h2');
   locationName.classList.add('location-name');
   locationName.textContent = location.city.name;
-  // this.container.appendChild(locationName);
   return locationName;
 };
 
@@ -44,9 +47,22 @@ ForecastView.prototype.iconHeader = function (location) {
   const weatherIcon = document.createElement('img');
   weatherIcon.src = `http://openweathermap.org/img/w/${icon}.png`
   weatherIcon.alt = altText;
-  // this.container.appendChild(weatherIcon);
   return weatherIcon;
 };
+
+ForecastView.prototype.renderForecastDetailViews = function (forecasts) {
+    forecasts.list.forEach((forecast) => {
+    const forecastItem = this.createForecastListItem(forecast);
+    this.container.appendChild(forecastItem);
+  });
+}
+
+ForecastView.prototype.createForecastListItem = function (forecast) {
+  const forecastDetailView = new ForecastDetailView();
+  const forecastDetail = forecastDetailView.createForecastDetail(forecast);
+  return forecastDetail;
+};
+
 
 
 module.exports = ForecastView;

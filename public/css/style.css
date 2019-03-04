@@ -2,13 +2,15 @@ input[type="number"] {
   width: 100px;
 }
 
-label{
+ label{
     display: inline-block;
+    padding-right: 5px;
     float: left;
     clear: left;
     width: 250px;
     text-align: right;
 }
+
 input {
   display: inline-block;
   float: left;
@@ -16,8 +18,8 @@ input {
 
 input[type="submit"] {
   width: 10%;
-  margin-left: 30%;
-  margin-right: 30%
+  margin-left: 45%;
+  margin-right: 45%;
 }
 
 .location-header img {
@@ -30,4 +32,12 @@ input[type="submit"] {
   position: relative;
   top: 18px;
   left: 10px;
+}
+
+li.temperature::after {
+  content: "°";
+}
+
+li.humidity::after {
+  content: "%";
 }
