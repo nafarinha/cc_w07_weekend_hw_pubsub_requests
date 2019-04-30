@@ -50,12 +50,49 @@ ForecastView.prototype.iconHeader = function (location) {
   return weatherIcon;
 };
 
+// ForecastView.prototype.renderForecastDayGroup = function (forecasts) {
+//   forecasts.list.forEach((forecast) => {
+//     const forecastDayGroup = document.createElement('div');
+//     forecastDayGroup.classList.add('forecast-day');
+//     forecastDayGroup.textContent = forecast.dt;
+//
+//     const forecastItems = this.renderForecastDetailViews(forecasts);
+//
+//     forecastDayGroup.appendChild(forecastItems);
+//
+//     this.container.appendChild(forecastDayGroup);
+//   });
+// };
+
+
 ForecastView.prototype.renderForecastDetailViews = function (forecasts) {
     forecasts.list.forEach((forecast) => {
+
+    const forecastDayGroup = document.createElement('div');
+    forecastDayGroup.classList.add('forecast-day');
+    forecastDayGroup.textContent = this.dateGroup(forecast.dt);
+
     const forecastItem = this.createForecastListItem(forecast);
-    this.container.appendChild(forecastItem);
+
+    forecastDayGroup.appendChild(forecastItem);
+
+    this.container.appendChild(forecastDayGroup);
   });
 }
+
+ForecastView.prototype.dateGroup = function (timestamp) {
+  let date = new Date(timestamp * 1000);
+  formatedDate = date.toLocaleDateString("en-GB")
+  return formatedDate;
+};
+
+// ForecastView.prototype.renderForecastDetailViews = function (forecasts) {
+//     forecasts.list.forEach((forecast) => {
+//     const forecastItem = this.createForecastListItem(forecast);
+//
+//     this.container.appendChild(forecastItem);
+//   });
+// }
 
 ForecastView.prototype.createForecastListItem = function (forecast) {
   const forecastDetailView = new ForecastDetailView();
